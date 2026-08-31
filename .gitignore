@@ -1,0 +1,17 @@
+# OS generated files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# IDE / Project files
+.agents/
+.idea/
+.vscode/
+
+# Local Node files (if any node_modules are created later)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.env

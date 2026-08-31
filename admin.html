@@ -1,0 +1,1374 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Trị Hệ Thống - ShopCóWeb</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f9fafb;
+            --bg-tertiary: #f3f4f6;
+            --text-primary: #111827;
+            --text-secondary: #4b5563;
+            --text-muted: #9ca3af;
+            --primary: #ea580c;
+            --primary-hover: #c2410c;
+            --secondary: #2563eb;
+            --success: #16a34a;
+            --danger: #dc2626;
+            --radius-md: 10px;
+            --radius-sm: 6px;
+            --shadow-md: 0 4px 15px -3px rgba(0, 0, 0, 0.05), 0 2px 6px -2px rgba(0, 0, 0, 0.03);
+            --shadow-lg: 0 10px 30px -5px rgba(0, 0, 0, 0.06);
+            --font-body: 'Inter', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
+            line-height: 1.5;
+        }
+
+        /* ----------------------------------
+           LOGIN CARD
+           ---------------------------------- */
+        .login-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 1.5rem;
+        }
+
+        .login-card {
+            background-color: #ffffff;
+            border: 1px solid var(--bg-tertiary);
+            border-radius: var(--radius-md);
+            padding: 2.5rem 2rem;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: var(--shadow-lg);
+            text-align: center;
+        }
+
+        .login-logo {
+            font-size: 1.75rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .login-logo span {
+            color: var(--primary);
+        }
+
+        .login-title {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            text-align: left;
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 2.5rem;
+            border: 1px solid var(--bg-tertiary);
+            background-color: var(--bg-secondary);
+            border-radius: var(--radius-sm);
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            background-color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.1);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border: none;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: #ffffff;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .login-error {
+            margin-top: 1rem;
+            color: var(--danger);
+            font-size: 0.85rem;
+            text-align: center;
+        }
+
+        /* ----------------------------------
+           DASHBOARD LAYOUT
+           ---------------------------------- */
+        .admin-container {
+            display: none; /* Shown via JS */
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        .top-navbar {
+            background-color: #ffffff;
+            border-bottom: 1px solid var(--bg-tertiary);
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar-brand {
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+
+        .navbar-brand span {
+            color: var(--primary);
+        }
+
+        .navbar-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-info {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .btn-logout {
+            background-color: transparent;
+            border: 1px solid var(--bg-tertiary);
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            padding: 0.4rem 0.8rem;
+            width: auto;
+        }
+
+        .btn-logout:hover {
+            background-color: var(--bg-tertiary);
+            color: var(--danger);
+        }
+
+        /* Main Area */
+        .main-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            flex-grow: 1;
+        }
+
+        @media (min-width: 768px) {
+            .main-layout {
+                grid-template-columns: 240px 1fr;
+            }
+        }
+
+        /* Sidebar Tabs Control */
+        .sidebar {
+            background-color: #ffffff;
+            border-right: 1px solid var(--bg-tertiary);
+            padding: 1.5rem 0;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            border-bottom: 1px solid var(--bg-tertiary);
+        }
+
+        @media (min-width: 768px) {
+            .sidebar {
+                flex-direction: column;
+                justify-content: flex-start;
+                border-bottom: none;
+                height: calc(100vh - 3.5rem);
+                position: sticky;
+                top: 3.5rem;
+            }
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            outline: none;
+            padding: 0.85rem 1.5rem;
+            width: auto;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            border-radius: var(--radius-sm);
+            transition: all 0.2s ease;
+        }
+
+        @media (min-width: 768px) {
+            .tab-btn {
+                width: 100%;
+                text-align: left;
+                padding: 1rem 1.5rem;
+                border-radius: 0;
+            }
+        }
+
+        .tab-btn:hover {
+            background-color: var(--bg-secondary);
+            color: var(--primary);
+        }
+
+        .tab-btn.active {
+            background-color: var(--bg-accent-light);
+            color: var(--primary);
+            border-left: 3px solid var(--primary);
+        }
+
+        /* Dashboard Content panels */
+        .content-area {
+            padding: 1.5rem;
+        }
+
+        .tab-panel {
+            display: none;
+        }
+
+        .tab-panel.active {
+            display: block;
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--bg-tertiary);
+            padding-bottom: 1rem;
+        }
+
+        .panel-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+        }
+
+        /* SUBMISSIONS TABLE */
+        .card {
+            background-color: #ffffff;
+            border: 1px solid var(--bg-tertiary);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+            width: 100%;
+        }
+
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+
+        .admin-table th, 
+        .admin-table td {
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--bg-tertiary);
+        }
+
+        .admin-table th {
+            background-color: var(--bg-secondary);
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .admin-table tr:hover {
+            background-color: var(--bg-secondary);
+        }
+
+        .tag-package {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border-radius: var(--radius-sm);
+        }
+
+        .tag-static {
+            background-color: var(--bg-accent-light);
+            color: var(--primary);
+            border: 1px solid rgba(234, 88, 12, 0.2);
+        }
+
+        .tag-dynamic {
+            background-color: var(--bg-blue-light);
+            color: var(--secondary);
+            border: 1px solid rgba(37, 99, 235, 0.2);
+        }
+
+        .tag-other {
+            background-color: var(--bg-tertiary);
+            color: var(--text-secondary);
+        }
+
+        .btn-sm {
+            padding: 0.35rem 0.7rem;
+            font-size: 0.8rem;
+            width: auto;
+            border-radius: var(--radius-sm);
+        }
+
+        .btn-danger {
+            background-color: var(--danger);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #b91c1c;
+        }
+
+        .btn-success {
+            background-color: var(--success);
+            color: white;
+            box-shadow: 0 2px 8px rgba(22, 163, 74, 0.2);
+        }
+
+        .btn-success:hover {
+            background-color: #15803d;
+        }
+
+        .empty-state {
+            padding: 3rem;
+            text-align: center;
+            color: var(--text-secondary);
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        /* CONFIGURATION FORM */
+        .config-form {
+            max-width: 650px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        @media (min-width: 600px) {
+            .form-row {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background-color: #111827;
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow-lg);
+            display: none;
+            z-index: 1000;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(1rem); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. LOGIN CONTAINER -->
+    <div class="login-wrapper" id="login-wrapper">
+        <div class="login-card">
+            <h1 class="login-logo"><span>Shop</span>CóWeb</h1>
+            <p class="login-title">Đăng nhập trang quản trị</p>
+            
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="username">Tên đăng nhập</label>
+                    <div class="input-wrapper">
+                        <i class="fa-regular fa-user"></i>
+                        <input type="text" id="username" class="form-control" placeholder="admin" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Mật khẩu</label>
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" id="password" class="form-control" placeholder="••••••••" required>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">
+                    Đăng Nhập <i class="fa-solid fa-right-to-bracket"></i>
+                </button>
+                
+                <div id="login-error" class="login-error"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 2. ADMIN CONTAINER -->
+    <div class="admin-container" id="admin-container">
+        <!-- Top Navbar -->
+        <header class="top-navbar">
+            <div class="navbar-brand">
+                <span>Shop</span>CóWeb Admin
+            </div>
+            <div class="navbar-actions">
+                <span class="user-info"><i class="fa-regular fa-circle-user"></i> Quản trị viên</span>
+                <button class="btn btn-logout" id="btn-logout">
+                    Đăng xuất <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Layout -->
+        <div class="main-layout">
+            <!-- Sidebar Controls -->
+            <aside class="sidebar">
+                <button class="tab-btn active" data-tab="tab-leads">
+                    <i class="fa-solid fa-list-check"></i> Yêu cầu tư vấn
+                </button>
+                <button class="tab-btn" data-tab="tab-config">
+                    <i class="fa-solid fa-sliders"></i> Cài đặt chung
+                </button>
+                <button class="tab-btn" data-tab="tab-gallery">
+                    <i class="fa-solid fa-images"></i> Quản lý thư viện
+                </button>
+            </aside>
+
+            <!-- Content Area -->
+            <main class="content-area">
+                <!-- Panel 1: Leads list -->
+                <div class="tab-panel active" id="tab-leads">
+                    <div class="panel-header">
+                        <h2 class="panel-title">Khách Hàng Đăng Ký Tư Vấn</h2>
+                        <button class="btn btn-success btn-sm" id="btn-export">
+                            <i class="fa-solid fa-file-excel"></i> Xuất file CSV
+                        </button>
+                    </div>
+
+                    <div class="card">
+                        <div class="table-responsive">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>Thời gian</th>
+                                        <th>Họ và Tên</th>
+                                        <th>Số điện thoại</th>
+                                        <th>Gói quan tâm</th>
+                                        <th>Ghi chú yêu cầu</th>
+                                        <th>Hành động</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="submissions-tbody">
+                                    <!-- Populated via JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Panel 2: General settings -->
+                <div class="tab-panel" id="tab-config">
+                    <div class="panel-header">
+                        <h2 class="panel-title">Cài Đặt Thông Tin Liên Hệ</h2>
+                    </div>
+
+                    <div class="card">
+                        <form id="config-form" class="config-form">
+                            <div class="form-group">
+                                <label for="cfg-address">Địa chỉ hiển thị trên website</label>
+                                <input type="text" id="cfg-address" class="form-control" style="padding-left:1rem;" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="cfg-email">Email liên hệ</label>
+                                <input type="email" id="cfg-email" class="form-control" style="padding-left:1rem;" required>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="cfg-phone">Số điện thoại Hotline</label>
+                                    <input type="text" id="cfg-phone" class="form-control" style="padding-left:1rem;" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cfg-phone-fmt">Số điện thoại định dạng (Hiển thị dạng: 09xx.xxx.xxx)</label>
+                                    <input type="text" id="cfg-phone-fmt" class="form-control" style="padding-left:1rem;" required>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="cfg-zalo">Số Zalo liên hệ</label>
+                                    <input type="text" id="cfg-zalo" class="form-control" style="padding-left:1rem;" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cfg-zalo-url">Đường dẫn Zalo (https://zalo.me/09xx...)</label>
+                                    <input type="text" id="cfg-zalo-url" class="form-control" style="padding-left:1rem;" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="cfg-messenger">Đường dẫn Messenger (https://m.me/...)</label>
+                                <input type="text" id="cfg-messenger" class="form-control" style="padding-left:1rem;" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="cfg-map-url">Link nhúng Google Map iframe (src)</label>
+                                <textarea id="cfg-map-url" class="form-control" rows="3" style="padding-left:1rem;" required></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary" style="align-self: flex-start; width: auto; padding: 0.75rem 2.5rem;">
+                                Lưu Cấu Hình <i class="fa-regular fa-floppy-disk"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Panel 3: Gallery manager -->
+                <div class="tab-panel" id="tab-gallery">
+                    <div class="panel-header">
+                        <h2 class="panel-title">Quản Lý Thư Viện Giao Diện / Video</h2>
+                        <button class="btn btn-success btn-sm" id="btn-add-gallery-trigger" style="width:auto;">
+                            <i class="fa-solid fa-plus"></i> Thêm sản phẩm mới
+                        </button>
+                    </div>
+
+                    <!-- Add/Edit Gallery Item Form (Toggle visibility) -->
+                    <div id="add-gallery-box" class="card" style="display: none; margin-bottom: 2rem; padding: 1.5rem;">
+                        <h3 id="gallery-form-title" style="margin-bottom: 1.25rem; font-size: 1.1rem; font-weight: 700; color: var(--primary);">Thêm sản phẩm thư viện mới</h3>
+                        <form id="add-gallery-form">
+                            <!-- Hidden ID input for editing -->
+                            <input type="hidden" id="gal-id" value="">
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="gal-title">Tiêu đề sản phẩm <span style="color: var(--danger);">*</span></label>
+                                    <input type="text" id="gal-title" class="form-control" style="padding-left:1rem;" placeholder="Ví dụ: Mẫu Website Spa Cổ Điển" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="gal-type">Loại sản phẩm <span style="color: var(--danger);">*</span></label>
+                                    <select id="gal-type" class="form-control" style="padding-left:1rem;" required>
+                                        <option value="image">Hình ảnh mẫu giao diện</option>
+                                        <option value="video">Video YouTube (Bình thường / Shorts)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Source Input group (URL vs Upload) -->
+                            <div class="form-group" id="gal-src-group">
+                                <label id="gal-src-label">Đường dẫn liên kết (Source URL) <span style="color: var(--danger);">*</span></label>
+                                <div id="src-source-toggles" style="display: flex; gap: 1rem; margin-bottom: 0.5rem;">
+                                    <label style="font-weight: normal; font-size: 0.85rem; cursor: pointer; display: flex; align-items: center; gap: 0.25rem;">
+                                        <input type="radio" name="src-source-type" value="url" checked> Nhập liên kết (URL)
+                                    </label>
+                                    <label id="src-upload-toggle" style="font-weight: normal; font-size: 0.85rem; cursor: pointer; display: flex; align-items: center; gap: 0.25rem;">
+                                        <input type="radio" name="src-source-type" value="upload"> Tải ảnh lên từ máy tính
+                                    </label>
+                                </div>
+                                <!-- Text Input URL -->
+                                <input type="url" id="gal-src" class="form-control" style="padding-left:1rem;" placeholder="Ví dụ: https://images.unsplash.com/... hoặc https://youtube.com/watch?v=...">
+                                <!-- File Input Upload -->
+                                <input type="file" id="gal-src-file" class="form-control" style="display: none; padding: 0.4rem 1rem;" accept="image/*">
+                                <small style="color: var(--text-secondary); font-size: 0.8rem; margin-top: 0.25rem; display: block;">
+                                    * Nếu chọn YouTube, hệ thống sẽ tự động chuyển đổi URL (kể cả Shorts) và tự động tạo hình ảnh đại diện (thumbnail) tương ứng!
+                                </small>
+                            </div>
+
+                            <!-- Thumbnail Input group (URL vs Upload) -->
+                            <div class="form-group" id="gal-thumb-group">
+                                <label>Hình ảnh đại diện (Thumbnail)</label>
+                                <div id="thumb-source-toggles" style="display: flex; gap: 1rem; margin-bottom: 0.5rem;">
+                                    <label style="font-weight: normal; font-size: 0.85rem; cursor: pointer; display: flex; align-items: center; gap: 0.25rem;">
+                                        <input type="radio" name="thumb-source-type" value="url" checked> Nhập URL ảnh đại diện
+                                    </label>
+                                    <label style="font-weight: normal; font-size: 0.85rem; cursor: pointer; display: flex; align-items: center; gap: 0.25rem;">
+                                        <input type="radio" name="thumb-source-type" value="upload"> Tải ảnh lên từ máy tính
+                                    </label>
+                                </div>
+                                <!-- Text Input URL -->
+                                <input type="url" id="gal-thumb" class="form-control" style="padding-left:1rem;" placeholder="Mặc định sử dụng ảnh phía trên hoặc tự lấy từ video">
+                                <!-- File Input Upload -->
+                                <input type="file" id="gal-thumb-file" class="form-control" style="display: none; padding: 0.4rem 1rem;" accept="image/*">
+                            </div>
+
+                            <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+                                <button type="submit" class="btn btn-primary" id="btn-save-gallery" style="width: auto; padding: 0.75rem 2rem;">Lưu Lại <i class="fa-regular fa-floppy-disk"></i></button>
+                                <button type="button" class="btn" id="btn-add-gallery-cancel" style="width: auto; background-color: var(--bg-tertiary); color: var(--text-secondary);">Hủy bỏ</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Gallery Items List Table -->
+                    <div class="card">
+                        <div class="table-responsive">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 120px;">Ảnh thu nhỏ</th>
+                                        <th>Tiêu đề sản phẩm</th>
+                                        <th>Phân loại</th>
+                                        <th>Đường dẫn liên kết</th>
+                                        <th>Hành động</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="gallery-tbody">
+                                    <!-- Populated via JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div class="toast" id="toast">Thông báo</div>
+
+    <!-- 3. ADMIN BUSINESS LOGIC JS -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const DOM = {
+                loginWrapper: document.getElementById('login-wrapper'),
+                adminContainer: document.getElementById('admin-container'),
+                loginForm: document.getElementById('login-form'),
+                loginError: document.getElementById('login-error'),
+                btnLogout: document.getElementById('btn-logout'),
+                tabButtons: document.querySelectorAll('.tab-btn'),
+                tabPanels: document.querySelectorAll('.tab-panel'),
+                submissionsTbody: document.getElementById('submissions-tbody'),
+                configForm: document.getElementById('config-form'),
+                btnExport: document.getElementById('btn-export'),
+                toast: document.getElementById('toast'),
+                
+                // Form Fields
+                address: document.getElementById('cfg-address'),
+                email: document.getElementById('cfg-email'),
+                phone: document.getElementById('cfg-phone'),
+                phoneFmt: document.getElementById('cfg-phone-fmt'),
+                zalo: document.getElementById('cfg-zalo'),
+                zaloUrl: document.getElementById('cfg-zalo-url'),
+                messenger: document.getElementById('cfg-messenger'),
+                mapUrl: document.getElementById('cfg-map-url'),
+
+                // Gallery Manager Fields
+                galleryTbody: document.getElementById('gallery-tbody'),
+                addGalleryForm: document.getElementById('add-gallery-form'),
+                btnAddGalleryTrigger: document.getElementById('btn-add-gallery-trigger'),
+                btnAddGalleryCancel: document.getElementById('btn-add-gallery-cancel'),
+                addGalleryBox: document.getElementById('add-gallery-box'),
+                galTitle: document.getElementById('gal-title'),
+                galType: document.getElementById('gal-type'),
+                galSrc: document.getElementById('gal-src'),
+                galThumb: document.getElementById('gal-thumb')
+            };
+
+            let appState = {
+                authenticated: false,
+                submissions: [],
+                contact: {},
+                gallery: []
+            };
+
+            // Check Authentication Status
+            const checkAuth = () => {
+                const token = localStorage.getItem('adminToken');
+                if (token === 'active_session_admin') {
+                    appState.authenticated = true;
+                    DOM.loginWrapper.style.display = 'none';
+                    DOM.adminContainer.style.display = 'flex';
+                    loadDashboardData();
+                } else {
+                    appState.authenticated = false;
+                    DOM.loginWrapper.style.display = 'flex';
+                    DOM.adminContainer.style.display = 'none';
+                }
+            };
+
+            // Show Toast Message
+            const showToast = (message, duration = 3000) => {
+                DOM.toast.textContent = message;
+                DOM.toast.style.display = 'block';
+                setTimeout(() => {
+                    DOM.toast.style.display = 'none';
+                }, duration);
+            };
+
+            // ----------------------------------
+            // LOGIN SUBMIT
+            // ----------------------------------
+            DOM.loginForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const username = document.getElementById('username').value.trim();
+                const password = document.getElementById('password').value;
+
+                DOM.loginError.textContent = '';
+
+                try {
+                    const response = await fetch('/api/login', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ username, password })
+                    });
+                    const result = await response.json();
+
+                    if (response.ok && result.success) {
+                        localStorage.setItem('adminToken', 'active_session_admin');
+                        showToast('Đăng nhập thành công!');
+                        checkAuth();
+                    } else {
+                        DOM.loginError.textContent = result.error || 'Tài khoản hoặc mật khẩu không đúng!';
+                    }
+                } catch (error) {
+                    console.error('Error during login:', error);
+                    DOM.loginError.textContent = 'Lỗi kết nối đến máy chủ!';
+                }
+            });
+
+            // ----------------------------------
+            // LOGOUT BUTTON
+            // ----------------------------------
+            DOM.btnLogout.addEventListener('click', () => {
+                localStorage.removeItem('adminToken');
+                showToast('Đã đăng xuất.');
+                checkAuth();
+            });
+
+            // ----------------------------------
+            // TAB SWITCHING
+            // ----------------------------------
+            DOM.tabButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const targetTab = btn.getAttribute('data-tab');
+                    
+                    DOM.tabButtons.forEach(b => b.classList.remove('active'));
+                    DOM.tabPanels.forEach(p => p.classList.remove('active'));
+                    
+                    btn.classList.add('active');
+                    document.getElementById(targetTab).classList.add('active');
+                });
+            });
+
+            // ----------------------------------
+            // LOAD DASHBOARD DATA
+            // ----------------------------------
+            const loadDashboardData = async () => {
+                try {
+                    // Fetch db.json data directly
+                    const res = await fetch('/db.json?t=' + Date.now());
+                    if (!res.ok) throw new Error('Không thể tải dữ liệu');
+                    const dbData = await res.json();
+
+                    appState.submissions = dbData.submissions || [];
+                    appState.contact = dbData.contact || {};
+                    appState.gallery = dbData.gallery || [];
+
+                    renderSubmissions(appState.submissions);
+                    fillConfigForm(appState.contact);
+                    renderGalleryTable(appState.gallery);
+                } catch (error) {
+                    console.error('Error fetching dashboard data:', error);
+                    showToast('Lỗi khi tải dữ liệu cấu hình!');
+                }
+            };
+
+            // Render Submissions List Table
+            const renderSubmissions = (submissions) => {
+                if (submissions.length === 0) {
+                    DOM.submissionsTbody.innerHTML = `
+                        <tr>
+                            <td colspan="6" class="empty-state">
+                                <i class="fa-solid fa-inbox"></i>
+                                Chưa có khách hàng nào đăng ký tư vấn.
+                            </td>
+                        </tr>
+                    `;
+                    return;
+                }
+
+                // Sort submissions by timestamp descending (newest first)
+                const sorted = [...submissions].sort((a, b) => b.id - a.id);
+
+                DOM.submissionsTbody.innerHTML = sorted.map(sub => {
+                    const dateStr = sub.timestamp ? new Date(sub.timestamp).toLocaleString('vi-VN') : new Date(sub.id).toLocaleString('vi-VN');
+                    let pkgClass = 'tag-other';
+                    if (sub.package.includes('Tĩnh')) pkgClass = 'tag-static';
+                    if (sub.package.includes('Bán Hàng')) pkgClass = 'tag-dynamic';
+
+                    return `
+                        <tr>
+                            <td><strong>${dateStr}</strong></td>
+                            <td>${sub.fullname}</td>
+                            <td><a href="tel:${sub.phone}" style="color: var(--secondary); font-weight:600;"><i class="fa-solid fa-phone"></i> ${sub.phone}</a></td>
+                            <td><span class="tag-package ${pkgClass}">${sub.package}</span></td>
+                            <td><span style="font-size:0.85rem; color:var(--text-secondary);">${sub.message || 'Không có ghi chú'}</span></td>
+                            <td>
+                                <button class="btn btn-danger btn-sm btn-delete-submission" data-id="${sub.id}">
+                                    <i class="fa-regular fa-trash-can"></i> Xóa
+                                </button>
+                            </td>
+                        </tr>
+                    `;
+                }).join('');
+
+                // Bind delete button events
+                document.querySelectorAll('.btn-delete-submission').forEach(btn => {
+                    btn.addEventListener('click', async (e) => {
+                        const id = parseInt(btn.getAttribute('data-id'));
+                        if (confirm('Bạn có chắc chắn muốn xóa yêu cầu tư vấn này không?')) {
+                            await deleteSubmission(id);
+                        }
+                    });
+                });
+            };
+
+            // Delete Submission Request
+            const deleteSubmission = async (id) => {
+                try {
+                    const response = await fetch('/api/submissions/delete', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ id })
+                    });
+
+                    if (response.ok) {
+                        showToast('Xóa yêu cầu đăng ký thành công!');
+                        loadDashboardData();
+                    } else {
+                        showToast('Xóa thất bại. Lỗi máy chủ.');
+                    }
+                } catch (error) {
+                    console.error('Error deleting submission:', error);
+                    showToast('Lỗi mạng khi xóa yêu cầu!');
+                }
+            };
+
+            // Fill Configuration Form fields
+            const fillConfigForm = (contact) => {
+                DOM.address.value = contact.address || '';
+                DOM.email.value = contact.email || '';
+                DOM.phone.value = contact.phone || '';
+                DOM.phoneFmt.value = contact.phoneFormatted || '';
+                DOM.zalo.value = contact.zalo || '';
+                DOM.zaloUrl.value = contact.zaloUrl || '';
+                DOM.messenger.value = contact.messengerUrl || '';
+                DOM.mapUrl.value = contact.mapUrl || '';
+            };
+
+            // ----------------------------------
+            // SAVE CONFIGURATION FORM SUBMIT
+            // ----------------------------------
+            DOM.configForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const updatedContact = {
+                    address: DOM.address.value.trim(),
+                    email: DOM.email.value.trim(),
+                    phone: DOM.phone.value.trim(),
+                    phoneFormatted: DOM.phoneFmt.value.trim(),
+                    zalo: DOM.zalo.value.trim(),
+                    zaloUrl: DOM.zaloUrl.value.trim(),
+                    messengerUrl: DOM.messenger.value.trim(),
+                    mapUrl: DOM.mapUrl.value.trim()
+                };
+
+                try {
+                    const response = await fetch('/api/settings', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(updatedContact)
+                    });
+
+                    if (response.ok) {
+                        showToast('Cập nhật cấu hình liên hệ thành công! Giao diện trang chủ đã sẵn sàng.');
+                        loadDashboardData();
+                    } else {
+                        showToast('Cập nhật thất bại. Lỗi máy chủ.');
+                    }
+                } catch (error) {
+                    console.error('Error saving settings:', error);
+                    showToast('Lỗi mạng khi gửi thông tin cấu hình!');
+                }
+            });
+
+            // ----------------------------------
+            // EXPORT SUBMISSIONS TO CSV
+            // ----------------------------------
+            DOM.btnExport.addEventListener('click', () => {
+                if (appState.submissions.length === 0) {
+                    showToast('Không có dữ liệu để xuất file!');
+                    return;
+                }
+
+                // Create CSV string with BOM for Vietnamese characters Excel compliance
+                let csvContent = "\uFEFF";
+                csvContent += "Thời gian,Họ và Tên,Số điện thoại,Gói dịch vụ,Ghi chú yêu cầu\n";
+
+                const sorted = [...appState.submissions].sort((a, b) => b.id - a.id);
+                sorted.forEach(sub => {
+                    const dateStr = sub.timestamp ? new Date(sub.timestamp).toLocaleString('vi-VN') : new Date(sub.id).toLocaleString('vi-VN');
+                    
+                    // Escape quote marks in string values
+                    const name = `"${sub.fullname.replace(/"/g, '""')}"`;
+                    const phone = `"${sub.phone}"`;
+                    const pkg = `"${sub.package.replace(/"/g, '""')}"`;
+                    const note = `"${(sub.message || '').replace(/"/g, '""')}"`;
+                    
+                    csvContent += `${dateStr},${name},${phone},${pkg},${note}\n`;
+                });
+
+                // Trigger file download
+                const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement("a");
+                link.setAttribute("href", url);
+                link.setAttribute("download", `khach_hang_dang_ky_${new Date().toISOString().slice(0,10)}.csv`);
+                link.style.visibility = 'hidden';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                showToast('Đang tải file CSV về máy...');
+            });
+
+            // ----------------------------------
+            // GALLERY MANAGEMENT FUNCTIONS
+            // ----------------------------------
+            const galElements = {
+                idInput: document.getElementById('gal-id'),
+                formTitle: document.getElementById('gallery-form-title'),
+                saveBtn: document.getElementById('btn-save-gallery'),
+                srcFile: document.getElementById('gal-src-file'),
+                thumbFile: document.getElementById('gal-thumb-file'),
+                srcRadioUrl: document.querySelector('input[name="src-source-type"][value="url"]'),
+                srcRadioUpload: document.querySelector('input[name="src-source-type"][value="upload"]'),
+                thumbRadioUrl: document.querySelector('input[name="thumb-source-type"][value="url"]'),
+                thumbRadioUpload: document.querySelector('input[name="thumb-source-type"][value="upload"]'),
+                srcUploadToggleGroup: document.getElementById('src-upload-toggle')
+            };
+
+            // Toggle URL/File uploads displays
+            const handleSrcRadioChange = () => {
+                const isUpload = document.querySelector('input[name="src-source-type"]:checked').value === 'upload';
+                if (isUpload) {
+                    DOM.galSrc.style.display = 'none';
+                    DOM.galSrc.required = false;
+                    galElements.srcFile.style.display = 'block';
+                    galElements.srcFile.required = !galElements.idInput.value; // Required only on create
+                } else {
+                    DOM.galSrc.style.display = 'block';
+                    DOM.galSrc.required = true;
+                    galElements.srcFile.style.display = 'none';
+                    galElements.srcFile.required = false;
+                }
+            };
+
+            const handleThumbRadioChange = () => {
+                const isUpload = document.querySelector('input[name="thumb-source-type"]:checked').value === 'upload';
+                if (isUpload) {
+                    DOM.galThumb.style.display = 'none';
+                    galElements.thumbFile.style.display = 'block';
+                } else {
+                    DOM.galThumb.style.display = 'block';
+                    galElements.thumbFile.style.display = 'none';
+                }
+            };
+
+            document.getElementsByName('src-source-type').forEach(r => r.addEventListener('change', handleSrcRadioChange));
+            document.getElementsByName('thumb-source-type').forEach(r => r.addEventListener('change', handleThumbRadioChange));
+
+            // Listen to Type changes. Show/hide inputs accordingly:
+            // - If IMAGE: Hide thumbnail fields group entirely (main image serves as thumbnail).
+            // - If VIDEO: Show thumbnail fields group (custom thumbnail config), hide file upload toggle for source video.
+            DOM.galType.addEventListener('change', () => {
+                const label = document.getElementById('gal-src-label');
+                const toggles = document.getElementById('src-source-toggles');
+                const thumbGroup = document.getElementById('gal-thumb-group');
+
+                if (DOM.galType.value === 'video') {
+                    // Update main source label
+                    label.innerHTML = 'Đường dẫn video YouTube <span style="color: var(--danger);">*</span>';
+                    
+                    // Video only accepts YouTube links (URLs), so hide file upload toggle for source
+                    toggles.style.display = 'none';
+                    galElements.srcRadioUrl.checked = true;
+                    handleSrcRadioChange();
+                    document.getElementById('gal-src').placeholder = 'Ví dụ: https://youtube.com/watch?v=... hoặc link Shorts';
+                    
+                    // Show thumbnail inputs for Video
+                    thumbGroup.style.display = 'block';
+                } else {
+                    // Image type
+                    label.innerHTML = 'Hình ảnh sản phẩm <span style="color: var(--danger);">*</span>';
+                    
+                    // Show file upload toggle for images
+                    toggles.style.display = 'flex';
+                    document.getElementById('gal-src').placeholder = 'Ví dụ: https://images.unsplash.com/...';
+                    
+                    // Hide thumbnail inputs for Image (main image serves as thumbnail)
+                    thumbGroup.style.display = 'none';
+                }
+            });
+
+            // Toggle form display
+            DOM.btnAddGalleryTrigger.addEventListener('click', () => {
+                resetGalleryForm();
+                DOM.addGalleryBox.style.display = 'block';
+                DOM.btnAddGalleryTrigger.style.display = 'none';
+            });
+
+            DOM.btnAddGalleryCancel.addEventListener('click', () => {
+                DOM.addGalleryBox.style.display = 'none';
+                DOM.btnAddGalleryTrigger.style.display = 'block';
+                resetGalleryForm();
+            });
+
+            // Reset Gallery Form to default state
+            const resetGalleryForm = () => {
+                DOM.addGalleryForm.reset();
+                galElements.idInput.value = '';
+                galElements.formTitle.textContent = 'Thêm sản phẩm thư viện mới';
+                galElements.saveBtn.innerHTML = 'Lưu Lại <i class="fa-regular fa-floppy-disk"></i>';
+                galElements.srcRadioUrl.checked = true;
+                galElements.thumbRadioUrl.checked = true;
+                DOM.galType.dispatchEvent(new Event('change')); // Automatically sync input visibilities
+            };
+
+            const getYouTubeVideoId = (url) => {
+                let videoId = '';
+                if (url.includes('/shorts/')) {
+                    videoId = url.split('/shorts/')[1].split('?')[0];
+                } else if (url.includes('v=')) {
+                    videoId = url.split('v=')[1].split('&')[0];
+                } else if (url.includes('youtu.be/')) {
+                    videoId = url.split('youtu.be/')[1].split('?')[0];
+                } else if (url.includes('/embed/')) {
+                    videoId = url.split('/embed/')[1].split('?')[0];
+                }
+                return videoId;
+            };
+
+            // Convert File to Base64
+            const fileToBase64 = (file) => new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
+            });
+
+            // Render Gallery Management Table
+            const renderGalleryTable = (gallery) => {
+                const tbody = DOM.galleryTbody;
+                if (!tbody) return;
+
+                if (!gallery || gallery.length === 0) {
+                    tbody.innerHTML = `
+                        <tr>
+                            <td colspan="5" class="empty-state">
+                                <i class="fa-regular fa-images"></i>
+                                Chưa có sản phẩm thư viện nào.
+                            </td>
+                        </tr>
+                    `;
+                    return;
+                }
+
+                // Sort gallery items by id descending (newest first)
+                const sorted = [...gallery].sort((a, b) => b.id - a.id);
+
+                tbody.innerHTML = sorted.map(item => {
+                    const isVideo = item.type === 'video';
+                    const categoryTag = isVideo ? '<span class="tag-package tag-dynamic"><i class="fa-brands fa-youtube"></i> Video</span>' : '<span class="tag-package tag-static"><i class="fa-regular fa-image"></i> Hình ảnh</span>';
+                    
+                    return `
+                        <tr>
+                            <td>
+                                <img src="${item.thumb || item.src}" alt="${item.title}" style="width: 80px; height: 50px; object-fit: cover; border-radius: var(--radius-sm); border: 1px solid var(--bg-tertiary);">
+                            </td>
+                            <td><strong>${item.title}</strong></td>
+                            <td>${categoryTag}</td>
+                            <td><a href="${item.src}" target="_blank" style="color: var(--secondary); font-size: 0.85rem; word-break: break-all;">${item.src}</a></td>
+                            <td>
+                                <div style="display: flex; gap: 0.5rem;">
+                                    <button class="btn btn-primary btn-sm btn-edit-gallery" data-id="${item.id}" style="background-color: var(--secondary); width: auto;">
+                                        <i class="fa-regular fa-pen-to-square"></i> Sửa
+                                    </button>
+                                    <button class="btn btn-danger btn-sm btn-delete-gallery" data-id="${item.id}">
+                                        <i class="fa-regular fa-trash-can"></i> Xóa
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                }).join('');
+
+                // Bind delete gallery events
+                document.querySelectorAll('.btn-delete-gallery').forEach(btn => {
+                    btn.addEventListener('click', async (e) => {
+                        const id = parseInt(btn.getAttribute('data-id'));
+                        if (confirm('Bạn có chắc chắn muốn xóa sản phẩm thư viện này không?')) {
+                            await deleteGalleryItem(id);
+                        }
+                    });
+                });
+
+                // Bind edit gallery events
+                document.querySelectorAll('.btn-edit-gallery').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const id = parseInt(btn.getAttribute('data-id'));
+                        const item = appState.gallery.find(g => g.id === id);
+                        if (item) {
+                            startEditGalleryItem(item);
+                        }
+                    });
+                });
+            };
+
+            // Start editing gallery item
+            const startEditGalleryItem = (item) => {
+                // Show form box
+                DOM.addGalleryBox.style.display = 'block';
+                DOM.btnAddGalleryTrigger.style.display = 'none';
+                
+                // Populate inputs
+                galElements.idInput.value = item.id;
+                DOM.galTitle.value = item.title;
+                DOM.galType.value = item.type;
+                
+                // Trigger type change layout updates
+                DOM.galType.dispatchEvent(new Event('change'));
+
+                // Populate Source
+                if (item.src.startsWith('/uploads/')) {
+                    galElements.srcRadioUpload.checked = true;
+                    // Reset file input label
+                    galElements.srcFile.required = false; 
+                } else {
+                    galElements.srcRadioUrl.checked = true;
+                    DOM.galSrc.value = item.src;
+                }
+                handleSrcRadioChange();
+
+                // Populate Thumbnail
+                if (item.thumb && item.thumb.startsWith('/uploads/')) {
+                    galElements.thumbRadioUpload.checked = true;
+                } else {
+                    galElements.thumbRadioUrl.checked = true;
+                    DOM.galThumb.value = item.thumb || '';
+                }
+                handleThumbRadioChange();
+
+                // Update form headers
+                galElements.formTitle.textContent = 'Cập nhật sản phẩm thư viện';
+                galElements.saveBtn.innerHTML = 'Cập Nhật <i class="fa-regular fa-circle-check"></i>';
+                
+                // Scroll to form
+                DOM.addGalleryBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            };
+
+            // Delete Gallery Item
+            const deleteGalleryItem = async (id) => {
+                try {
+                    const response = await fetch('/api/gallery/delete', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ id })
+                    });
+
+                    if (response.ok) {
+                        showToast('Xóa sản phẩm thư viện thành công!');
+                        loadDashboardData();
+                    } else {
+                        showToast('Xóa thất bại. Lỗi máy chủ.');
+                    }
+                } catch (error) {
+                    console.error('Error deleting gallery item:', error);
+                    showToast('Lỗi mạng khi xóa sản phẩm!');
+                }
+            };
+
+            // Form Submit for Adding / Editing Gallery Item
+            DOM.addGalleryForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const isEdit = !!galElements.idInput.value;
+                const itemId = isEdit ? parseInt(galElements.idInput.value) : Date.now();
+                const title = DOM.galTitle.value.trim();
+                const type = DOM.galType.value;
+                
+                let src = '';
+                let thumb = '';
+
+                // Get Source URL or Base64 file
+                const isSrcUpload = document.querySelector('input[name="src-source-type"]:checked').value === 'upload';
+                if (isSrcUpload) {
+                    const file = galElements.srcFile.files[0];
+                    if (file) {
+                        src = await fileToBase64(file);
+                    } else if (isEdit) {
+                        // Retain old value from state
+                        const oldItem = appState.gallery.find(g => g.id === itemId);
+                        src = oldItem ? oldItem.src : '';
+                    } else {
+                        showToast('Vui lòng chọn tệp ảnh tải lên!');
+                        return;
+                    }
+                } else {
+                    src = DOM.galSrc.value.trim();
+                }
+
+                // Get Thumbnail URL or Base64 file
+                if (type === 'image') {
+                    thumb = src; // For images, the source is the thumbnail
+                } else {
+                    const isThumbUpload = document.querySelector('input[name="thumb-source-type"]:checked').value === 'upload';
+                    if (isThumbUpload) {
+                        const file = galElements.thumbFile.files[0];
+                        if (file) {
+                            thumb = await fileToBase64(file);
+                        } else if (isEdit) {
+                            // Retain old value from state
+                            const oldItem = appState.gallery.find(g => g.id === itemId);
+                            thumb = oldItem ? oldItem.thumb : '';
+                        }
+                    } else {
+                        thumb = DOM.galThumb.value.trim();
+                    }
+
+                    // If type is video and thumb is empty, auto-generate YouTube thumbnail URL
+                    if (!thumb) {
+                        const videoId = getYouTubeVideoId(src);
+                        if (videoId) {
+                            thumb = `https://img.youtube.com/vi/${videoId}/mqdefault.jpg`;
+                        }
+                    }
+                }
+
+                if (!thumb) {
+                    thumb = src; // Fallback to source URL
+                }
+
+                const itemData = {
+                    id: itemId,
+                    type,
+                    title,
+                    src,
+                    thumb
+                };
+
+                const urlEndpoint = isEdit ? '/api/gallery/update' : '/api/gallery';
+                const successMsg = isEdit ? 'Cập nhật sản phẩm thư viện thành công!' : 'Thêm sản phẩm thư viện mới thành công!';
+
+                try {
+                    const response = await fetch(urlEndpoint, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(itemData)
+                    });
+
+                    if (response.ok) {
+                        showToast(successMsg);
+                        DOM.addGalleryBox.style.display = 'none';
+                        DOM.btnAddGalleryTrigger.style.display = 'block';
+                        resetGalleryForm();
+                        loadDashboardData();
+                    } else {
+                        showToast('Gửi thông tin thất bại. Lỗi máy chủ.');
+                    }
+                } catch (error) {
+                    console.error('Error saving gallery item:', error);
+                    showToast('Lỗi mạng khi lưu sản phẩm!');
+                }
+            });
+
+            // ----------------------------------
+            // BOOTSTRAP
+            // ----------------------------------
+            checkAuth();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Thiết kế website trọn gói siêu rẻ cho shop nhỏ, cá nhân kinh doanh. Web tĩnh giới thiệu và web bán hàng tinh gọn giá chỉ từ 1.990.000đ. Không phí duy trì ẩn, chuẩn SEO, mobile-first.">
+    <meta name="keywords"
+        content="thiết kế web giá rẻ, web tĩnh, web bán hàng tinh gọn, thiết kế web shop nhỏ, làm web trọn gói, hosting miễn phí">
+    <meta name="author" content="ShopCóWeb">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://localhost:5000/">
+    <meta property="og:title" content="SHOP CÓ WEB - Thiết kế website bán hàng gọn nhẹ cho shop nhỏ">
+    <meta property="og:description"
+        content="Sở hữu website bán hàng chuyên nghiệp, tải cực nhanh với chi phí tối ưu nhất cho hộ kinh doanh và cá nhân.">
+    <meta property="og:image"
+        content="https://images.unsplash.com/photo-1547082299-de196ea013d6?q=80&w=600&auto=format&fit=crop">
+
+    <title>SHOP CÓ WEB - Thiết kế website bán hàng gọn nhẹ cho shop nhỏ</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Saira+Extra+Condensed:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom Style -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Header & Navigation -->
+    <header class="site-header" id="site-header">
+        <div class="container header-container">
+            <a href="#" class="logo">
+                <img src="assets/images/logo.png" alt="ShopCóWeb Logo" class="logo-img">
+            </a>
+
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+                <i class="fa-solid fa-bars-staggered"></i>
+            </button>
+
+            <nav class="nav-menu" id="nav-menu">
+                <ul>
+                    <li><a href="#pain-points" class="nav-link">Khó khăn của Shop</a></li>
+                    <li><a href="#packages" class="nav-link">Dịch vụ của tôi</a></li>
+                    <li><a href="#comparison" class="nav-link">So sánh</a></li>
+                    <li><a href="#suitable" class="nav-link">Phù hợp với ai?</a></li>
+                    <li><a href="#gallery" class="nav-link">Thư viện</a></li>
+                    <li><a href="#process" class="nav-link">Quy trình</a></li>
+                    <li><a href="#faq" class="nav-link">Hỏi đáp</a></li>
+                    <li><a href="#contact" class="nav-link">Liên hệ</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section" id="hero">
+            <div class="hero-bg-glow"></div>
+            <div class="container hero-container">
+                <div class="hero-content">
+                    <span class="badge">Đồng hành cùng hộ kinh doanh cá thể</span>
+                    <h1 class="hero-title">Kinh Doanh Chuyên Nghiệp Hơn Với <span class="gradient-text">Website Chi Phí
+                            Thấp</span></h1>
+                    <p class="hero-desc">Sở hữu Website Tĩnh hoặc Web Bán Hàng Tinh Gọn chuẩn SEO, tải siêu tốc, tối ưu
+                        100% trên di động. Giúp shop nhỏ tăng uy tín, bùng nổ đơn hàng mà không ngốn phí duy trì.</p>
+                    <div class="hero-actions">
+                        <a href="#packages" class="btn btn-primary">Xem Bảng Giá <i
+                                class="fa-solid fa-arrow-right"></i></a>
+                        <a href="#contact" class="btn btn-secondary">Tư Vấn Miễn Phí</a>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <span class="stat-num">3-5 ngày</span>
+                            <span class="stat-label">Bàn giao nhanh</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-num">0đ</span>
+                            <span class="stat-label">Phí duy trì hosting*</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-num">100%</span>
+                            <span class="stat-label">Tối ưu di động</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="phone-mockup-wrapper">
+                        <img src="assets/images/hero_phone.png" alt="Website Demo" class="hero-phone-img">
+                        <!-- Decorative floating element -->
+                        <div class="floating-card c-1">
+                            <i class="fa-solid fa-circle-check text-success"></i>
+                            <div>
+                                <span class="card-title">Đã đặt hàng!</span>
+                                <span class="card-sub">Gửi tự động qua Zalo</span>
+                            </div>
+                        </div>
+                        <div class="floating-card c-2">
+                            <i class="fa-solid fa-bolt text-warning"></i>
+                            <div>
+                                <span class="card-title">Tải trang: 0.6s</span>
+                                <span class="card-sub">Siêu tốc độ</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pain Points Section -->
+        <section class="pain-points-section" id="pain-points">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-subtitle">Thấu hiểu nhà bán hàng</span>
+                    <h2 class="section-title">Khó Khăn Của Các Shop Nhỏ Khi Làm Web?</h2>
+                    <p class="section-desc">Kinh doanh nhỏ lẻ gặp rất nhiều rào cản tài chính và kỹ thuật. Bạn có đang
+                        gặp phải những tình trạng này?</p>
+                </div>
+
+                <div class="pain-grid">
+                    <div class="pain-card">
+                        <div class="pain-icon-box">
+                            <i class="fa-solid fa-hand-holding-dollar"></i>
+                        </div>
+                        <h3>Chi phí duy trì quá đắt đỏ</h3>
+                        <p>Làm web xong mỗi năm phải trả hàng triệu đồng phí duy trì Hosting, Server và quản trị. Doanh
+                            thu nhỏ không đủ bù đắp chi phí cố định này.</p>
+                    </div>
+
+                    <div class="pain-card">
+                        <div class="pain-icon-box">
+                            <i class="fa-solid fa-gears"></i>
+                        </div>
+                        <h3>Giao diện phức tạp, khó dùng</h3>
+                        <p>Các hệ thống WordPress, Magento quá cồng kềnh, ngốn nhiều thời gian cài đặt, cấu hình và rất
+                            dễ gặp lỗi kỹ thuật nếu không rành công nghệ.</p>
+                    </div>
+
+                    <div class="pain-card">
+                        <div class="pain-icon-box">
+                            <i class="fa-solid fa-comment-slash"></i>
+                        </div>
+                        <h3>Sót đơn hàng, trôi tin nhắn</h3>
+                        <p>Bán hàng qua mạng xã hội (Facebook, TikTok, Zalo) dễ bị trôi tin nhắn, sót bình luận của
+                            khách, dẫn đến mất doanh thu vào tay đối thủ.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Packages Section -->
+        <section class="packages-section" id="packages">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-subtitle">Giải pháp tinh gọn</span>
+                    <h2 class="section-title">Hai Gói Dịch Vụ Web May Đo Cho Shop Nhỏ</h2>
+                    <p class="section-desc">Lựa chọn gói dịch vụ tối ưu nhất theo nhu cầu thực tế của bạn. Không phát
+                        sinh chi phí ẩn.</p>
+                </div>
+
+                <div class="packages-grid" id="packages-container">
+                    <!-- Fallback Static Web Package (Server Side Render / client hydrations) -->
+                    <div class="package-card" id="pkg-static">
+                        <div class="package-badge-popular">Tiết Kiệm</div>
+                        <div class="package-header">
+                            <h3 class="package-name">Web Tĩnh Chuyên Nghiệp</h3>
+                            <p class="package-tagline">Tối ưu hóa chi phí & Tốc độ</p>
+                            <div class="package-price-box">
+                                <span class="old-price">3.500.000đ</span>
+                                <div class="price-now">
+                                    <span class="price-val">1.990.000</span>
+                                    <span class="price-currency">đ</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="package-desc">Phù hợp cho giới thiệu bản thân, dịch vụ, spa, quán ăn, thương hiệu cá
+                            nhân. Siêu tốc, bảo mật tuyệt đối.</p>
+                        <div class="package-divider"></div>
+                        <ul class="package-features">
+                            <li><i class="fa-solid fa-circle-check"></i> Thiết kế chuẩn Mobile & Chuẩn SEO</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Tốc độ tải trang siêu nhanh (&lt; 0.8s)</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Tặng tên miền .shop (1 năm)</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Hỗ trợ kết nối Zalo, Messenger, Gọi điện</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Bảo hành, hỗ trợ kỹ thuật trọn đời</li>
+                        </ul>
+                        <div class="package-action">
+                            <a href="#contact" class="btn btn-block btn-outline-cyan select-package-btn"
+                                data-package="Web Tĩnh Chuyên Nghiệp">Đăng Ký Ngay</a>
+                        </div>
+                    </div>
+
+                    <!-- Fallback Lean E-commerce Package -->
+                    <div class="package-card featured" id="pkg-dynamic">
+                        <div class="package-badge-popular">Khuyên Dùng</div>
+                        <div class="package-header">
+                            <h3 class="package-name">Web Bán Hàng Tinh Gọn</h3>
+                            <p class="package-tagline">Tự động hóa đơn hàng & Giỏ hàng</p>
+                            <div class="package-price-box">
+                                <span class="old-price">6.000.000đ</span>
+                                <div class="price-now">
+                                    <span class="price-val">3.990.000</span>
+                                    <span class="price-currency">đ</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="package-desc">Phù hợp cho shop quần áo, mỹ phẩm, đồ ăn online... Cần giỏ hàng, đặt
+                            hàng qua Zalo/Email nhanh chóng.</p>
+                        <div class="package-divider"></div>
+                        <ul class="package-features">
+                            <li><i class="fa-solid fa-circle-check"></i> Bao gồm toàn bộ tính năng Web Tĩnh</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Giỏ hàng </li>
+                            <li><i class="fa-solid fa-circle-check"></i> Đặt hàng tự động gửi tin nhắn qua Zalo/Email
+                            </li>
+                            <li><i class="fa-solid fa-circle-check"></i> Quản trị sản phẩm, cập nhật giá dễ dàng</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Hỗ trợ đăng tải thông tin ban đầu</li>
+                        </ul>
+                        <div class="package-action">
+                            <a href="#contact" class="btn btn-block btn-primary select-package-btn"
+                                data-package="Web Bán Hàng Tinh Gọn">Đăng Ký Ngay</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Web Tĩnh vs Web Động Comparison Section -->
+        <section class="comparison-section" id="comparison">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-subtitle">Tìm hiểu sâu hơn</span>
+                    <h2 class="section-title">So Sánh Chi Tiết: Web Tĩnh / Web Động</h2>
+                    <p class="section-desc">Phân tích giúp bạn đưa ra quyết định đầu tư đúng đắn nhất cho túi tiền của
+                        mình.</p>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Tiêu chí so sánh</th>
+                                <th>Web Tĩnh (Static Web)</th>
+                                <th>Web Động Tinh Gọn (Dynamic)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="feature-title">Chi phí vận hành</td>
+                                <td class="static-val text-success"><i class="fa-solid fa-check-circle"></i> 0đ (Free
+                                    Hosting trọn đời)</td>
+                                <td class="dynamic-val"><i class="fa-solid fa-check-circle"></i> Siêu rẻ (~500k/năm máy
+                                    chủ)</td>
+                            </tr>
+                            <tr>
+                                <td class="feature-title">Tốc độ tải trang</td>
+                                <td class="static-val text-success"><i class="fa-solid fa-bolt"></i> Siêu tốc (Dưới
+                                    0.8s)</td>
+                                <td class="dynamic-val"><i class="fa-solid fa-circle-check"></i> Nhanh (Dưới 1.5s)</td>
+                            </tr>
+                            <tr>
+                                <td class="feature-title">Giỏ hàng & Đặt hàng</td>
+                                <td class="static-val text-muted"><i class="fa-solid fa-times-circle"></i> Không hỗ trợ
+                                    giỏ hàng</td>
+                                <td class="dynamic-val text-success"><i class="fa-solid fa-cart-shopping"></i> Có giỏ
+                                    hàng, đặt hàng gửi Zalo</td>
+                            </tr>
+                            <tr>
+                                <td class="feature-title">Quản trị sản phẩm</td>
+                                <td class="static-val"><i class="fa-solid fa-code"></i> Thay đổi qua code (Hỗ trợ sửa)
+                                </td>
+                                <td class="dynamic-val text-success"><i class="fa-solid fa-user-gear"></i> Trang Admin
+                                    cập nhật nhanh gọn</td>
+                            </tr>
+                            <tr>
+                                <td class="feature-title">Tính bảo mật</td>
+                                <td class="static-val text-success"><i class="fa-solid fa-shield-halved"></i> Tuyệt đối
+                                    (Không thể hack database)</td>
+                                <td class="dynamic-val"><i class="fa-solid fa-shield"></i> Rất cao (Có bảo mật SSL)</td>
+                            </tr>
+                            <tr>
+                                <td class="feature-title">Phù hợp tốt nhất cho</td>
+                                <td class="static-val">Trang giới thiệu, Dịch vụ, Spa, Landing page đơn lẻ</td>
+                                <td class="dynamic-val">Shop thời trang, Mỹ phẩm, Cửa hàng ăn uống nhiều món</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Suitable Target Audience Section -->
+        <section class="suitable-section" id="suitable">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-subtitle">Xác định mục tiêu</span>
+                    <h2 class="section-title">Giải Pháp Này Phù Hợp Với Ai?</h2>
+                    <p class="section-desc">Chúng tôi tối ưu hóa quy trình để phục vụ tốt nhất cho các đối tượng kinh
+                        doanh quy mô nhỏ.</p>
+                </div>
+
+                <div class="suitable-grid">
+                    <div class="suitable-card">
+                        <div class="suitable-img-placeholder static-bg">
+                            <i class="fa-solid fa-spa"></i>
+                        </div>
+                        <div class="suitable-body">
+                            <h3>Nhà Cung Cấp Dịch Vụ</h3>
+                            <p>Các tiệm Spa, Nail, Salon tóc, Ảnh viện cưới, Phòng khám, Dịch vụ sửa chữa... Cần một
+                                trang giới thiệu năng lực, bảng giá và thông tin liên hệ đẹp mắt để chạy quảng cáo.</p>
+                            <span class="badge-pkg">Đề xuất: Web Tĩnh</span>
+                        </div>
+                    </div>
+
+                    <div class="suitable-card">
+                        <div class="suitable-img-placeholder shop-bg">
+                            <i class="fa-solid fa-store"></i>
+                        </div>
+                        <div class="suitable-body">
+                            <h3>Chủ Shop Bán Lẻ Online</h3>
+                            <p>Shop quần áo thời trang, phụ kiện, mỹ phẩm, thực phẩm sạch, bánh ngọt, tạp hóa online...
+                                Cần khách xem catalogue sản phẩm, chọn size/màu và đặt hàng tiện lợi.</p>
+                            <span class="badge-pkg highlight">Đề xuất: Web Bán Hàng Tinh Gọn</span>
+                        </div>
+                    </div>
+
+                    <div class="suitable-card">
+                        <div class="suitable-img-placeholder personal-bg">
+                            <i class="fa-solid fa-user-tie"></i>
+                        </div>
+                        <div class="suitable-body">
+                            <h3>Thương Hiệu Cá Nhân</h3>
+                            <p>Freelancer, KOLs, KOCs, Chuyên gia tư vấn, Bất động sản, Tuyển dụng... Cần trang
+                                Portfolio cá nhân thể hiện uy tín chuyên môn và thu hút đối tác kết nối.</p>
+                            <span class="badge-pkg">Đề xuất: Web Tĩnh</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Process Section -->
+        <section class="process-section" id="process">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-subtitle">Cách chúng tôi làm việc</span>
+                    <h2 class="section-title">Quy Trình Triển Khai Nhanh Gọn</h2>
+                    <p class="section-desc">Chỉ với 5 bước đơn giản, shop của bạn sẽ có một giao diện online cực kỳ
+                        chuyên nghiệp.</p>
+                </div>
+
+                <div class="process-steps">
+                    <div class="step-card">
+                        <div class="step-number">01</div>
+                        <h3>Tư vấn & Lựa chọn</h3>
+                        <p>Lắng nghe nhu cầu kinh doanh của bạn, tư vấn gói web phù hợp và chốt tên miền đẹp.</p>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-number">02</div>
+                        <h3>Gửi thông tin</h3>
+                        <p>Bạn chỉ cần gửi hình ảnh sản phẩm, nội dung giới thiệu cơ bản và thông tin liên hệ.</p>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-number">03</div>
+                        <h3>Thiết kế & Lập trình</h3>
+                        <p>Đội ngũ tiến hành code giao diện chuẩn SEO, tối ưu tốc độ tải trang nhanh nhất.</p>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-number">04</div>
+                        <h3>Duyệt & Căn chỉnh</h3>
+                        <p>Khách hàng xem trước phiên bản chạy thử trên điện thoại và điều chỉnh chi tiết nhỏ theo ý
+                            muốn.</p>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-number">05</div>
+                        <h3>Bàn giao & Hướng dẫn</h3>
+                        <p>Kích hoạt web chạy chính thức, bàn giao mã nguồn và hướng dẫn sử dụng quản trị (video).</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="faq-section" id="faq">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-subtitle">Giải đáp thắc mắc</span>
+                    <h2 class="section-title">Câu Hỏi Thường Gặp (FAQ)</h2>
+                    <p class="section-desc">Giải đáp các băn khoăn phổ biến của khách hàng trước khi bắt tay thiết kế
+                        website.</p>
+                </div>
+
+                <div class="faq-accordion" id="faq-container">
+                    <!-- Dynamic FAQs will be loaded here. Below are fallbacks for progressive enhancement -->
+                    <div class="faq-item active">
+                        <button class="faq-question">
+                            <span>Tôi có phải trả phí duy trì hàng năm không?</span>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Với gói <strong>Web Tĩnh</strong>, bạn hoàn toàn <strong>không tốn phí duy trì
+                                    hosting</strong>. Bạn chỉ cần gia hạn tên miền hàng năm (tầm 250k - 380k). Với gói
+                                <strong>Web Bán Hàng Tinh Gọn</strong>, chi phí duy trì máy chủ siêu tiết kiệm, chỉ từ
+                                500k/năm.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>Web Tĩnh và Web Bán Hàng Tinh Gọn khác nhau thế nào?</span>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p><strong>Web Tĩnh</strong> phù hợp để làm landing page giới thiệu công ty, giới thiệu dịch
+                                vụ (spa, nội thất, dịch vụ cưới...) hiển thị thông tin cố định, cực kỳ bảo mật và load
+                                cực nhanh. <strong>Web Bán Hàng Tinh Gọn</strong> tích hợp thêm tính năng chọn sản phẩm,
+                                giỏ hàng, đặt hàng và quản lý sản phẩm linh hoạt.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>Sau khi bàn giao tôi có tự chỉnh sửa được không?</span>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Được chứ! Chúng tôi sẽ bàn giao đầy đủ mã nguồn và có video hướng dẫn cụ thể cách cập
+                                nhật nội dung. Đối với gói Web Bán Hàng, bạn có trang quản trị đơn giản để tự đăng sản
+                                phẩm, thay đổi giá chỉ trong 30 giây.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section class="gallery-section" id="gallery">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-subtitle">Thư viện dự án</span>
+                    <h2 class="section-title">Sản Phẩm & Demo Thực Tế</h2>
+                    <p class="section-desc">Tham khảo các mẫu giao diện website đã thiết kế và video trải nghiệm thực tế
+                        đơn hàng của khách hàng.</p>
+                </div>
+
+                <div class="gallery-slider-wrapper">
+                    <div class="gallery-slides-track" id="gallery-track">
+                        <!-- Hydrated dynamically into slides of 9 items -->
+                    </div>
+                </div>
+
+                <div class="gallery-controls" id="gallery-controls">
+                    <button class="gallery-control-btn prev-btn" id="gallery-prev" aria-label="Trang trước">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </button>
+                    <div class="gallery-dots" id="gallery-dots"></div>
+                    <button class="gallery-control-btn next-btn" id="gallery-next" aria-label="Trang sau">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final CTA Section -->
+        <section class="final-cta">
+            <div class="cta-bg-glow"></div>
+            <div class="container cta-container">
+                <h3 class="section-title" style="width: 100% !important;text-align: center !important; color: white;">
+                    Bắt Đầu Đưa Shop Của Bạn Lên Bản Đồ Số Hôm Nay!
+                </h3>
+                <p>Khuyến mãi đặc biệt: Tặng trọn gói Tên miền quốc tế (.shop) khi đăng ký qua trang web này.</p>
+                <a href="#contact" class="btn btn-primary btn-large btn-glow">Nhận Ưu Đãi Ngay <i
+                        class="fa-solid fa-gift"></i></a>
+            </div>
+        </section>
+
+        <!-- Form & Map Section -->
+        <section class="contact-section" id="contact">
+            <div class="container contact-grid">
+                <!-- Form Box -->
+                <div class="contact-form-box">
+                    <h3 class="form-title">Đăng Ký Tư Vấn Miễn Phí</h3>
+                    <p class="form-subtitle">Điền thông tin bên dưới, chúng tôi sẽ liên hệ tư vấn chi tiết cho shop của
+                        bạn sau 15 phút.</p>
+
+                    <form id="lead-form" class="lead-form">
+                        <div class="form-group">
+                            <label for="fullname">Họ và Tên <span class="required">*</span></label>
+                            <div class="input-icon-wrapper">
+                                <i class="fa-regular fa-user"></i>
+                                <input type="text" id="fullname" name="fullname" placeholder="Nguyễn Văn A" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Số điện thoại (Zalo) <span class="required">*</span></label>
+                            <div class="input-icon-wrapper">
+                                <i class="fa-solid fa-phone-volume"></i>
+                                <input type="tel" id="phone" name="phone" placeholder="09xxxxxxxx" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="package-select">Gói dịch vụ quan tâm</label>
+                            <div class="input-icon-wrapper">
+                                <i class="fa-solid fa-cubes"></i>
+                                <select id="package-select" name="package">
+                                    <option value="Web Tĩnh Chuyên Nghiệp">Gói 1: Web Tĩnh Chuyên Nghiệp (1.990.000đ)
+                                    </option>
+                                    <option value="Web Bán Hàng Tinh Gọn">Gói 2: Web Bán Hàng Tinh Gọn (3.990.000đ)
+                                    </option>
+                                    <option value="Cần tư vấn thêm">Chưa quyết định - Cần tư vấn thêm</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Ghi chú yêu cầu của bạn (nếu có)</label>
+                            <textarea id="message" name="message" rows="3"
+                                placeholder="Ví dụ: Mình muốn làm web bán quần áo trẻ em, màu sắc hồng pastel ngọt ngào..."></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block btn-submit" id="submit-btn">
+                            Gửi Thông Tin Đăng Ký <i class="fa-regular fa-paper-plane"></i>
+                        </button>
+                    </form>
+
+                    <div id="form-feedback" class="form-feedback hidden"></div>
+                </div>
+
+                <!-- Map & Contact Info -->
+                <div class="contact-info-box">
+                    <div class="info-details">
+                        <h3>Thông Tin Liên Hệ</h3>
+                        <p class="info-intro">Chúng tôi sẵn sàng lắng nghe và hỗ trợ đưa thương hiệu của bạn bay xa.</p>
+
+                        <div class="info-item">
+                            <div class="info-icon"><i class="fa-solid fa-location-dot"></i></div>
+                            <div>
+                                <strong>Địa chỉ cửa hàng:</strong>
+                                <p id="contact-address">Ông Tía Shop, 801/2A đường Phạm Thế Hiển, P. Chánh Hưng, TP.HCM.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="info-item">
+                            <div class="info-icon"><i class="fa-solid fa-envelope"></i></div>
+                            <div>
+                                <strong>Email liên hệ:</strong>
+                                <p><a href="mailto:tranbaho@gmail.com" id="contact-email">tranbaho@gmail.com</a></p>
+                            </div>
+                        </div>
+
+                        <div class="info-item">
+                            <div class="info-icon"><i class="fa-solid fa-phone"></i></div>
+                            <div>
+                                <strong>Hotline Zalo / SĐT:</strong>
+                                <p><a href="tel:0918326706" id="contact-phone">0918.326.706</a></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Map wrapper -->
+                    <div class="map-wrapper">
+                        <iframe id="contact-map"
+                            src="https://maps.google.com/maps?q=%C3%94ng%20T%C3%ADa%20Shop,%20801/2A%20Ph%E1%BA%A3m%20Th%E1%BA%BF%20Hi%E1%BB%83n,%20Ch%C3%A1nh%20H%C6%B0ng,%20H%E1%BB%93%20Ch%C3%AD%20Minh&t=&z=16&ie=UTF8&iwloc=&output=embed"
+                            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container footer-container">
+            <div class="footer-brand">
+                <a href="#" class="logo">
+                    <img src="assets/images/logo.png" alt="ShopCóWeb Logo" class="logo-img2">
+                </a>
+                <p>Giải pháp website tiết kiệm, hiệu quả, nâng tầm kinh doanh cho hộ kinh doanh và doanh nghiệp nhỏ tại
+                    Việt Nam.</p>
+                <div class="footer-socials">
+                    <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Youtube"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#" aria-label="Zalo"><i class="fa-solid fa-comment-dots"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-links">
+                <h4>Đường Dẫn Nhanh</h4>
+                <ul>
+                    <li><a href="#hero">Trang chủ</a></li>
+                    <li><a href="#packages">Hai gói web</a></li>
+                    <li><a href="#comparison">Bảng so sánh</a></li>
+                    <li><a href="#process">Quy trình làm</a></li>
+                    <li><a href="#faq">Câu hỏi thường gặp</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-legal">
+                <h4>Chính Sách & Hỗ Trợ</h4>
+                <ul>
+                    <li><a href="#">Điều khoản sử dụng</a></li>
+                    <li><a href="#">Chính sách bảo mật</a></li>
+                    <li><a href="#">Chính sách bảo hành web</a></li>
+                    <li><a href="#">Hỗ trợ kỹ thuật 24/7</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2026 ShopCóWeb. Thiết kế bởi sự tâm huyết dành cho shop nhỏ. Bảo lưu mọi quyền.</p>
+                <p class="hosting-note">* Gói Web Tĩnh miễn phí hosting trọn đời qua GitHub Pages & Render. Chỉ tính phí
+                    mua và gia hạn tên miền riêng hàng năm.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Support Icons -->
+    <div class="floating-support" id="floating-support">
+        <a href="https://zalo.me/0918326706" target="_blank" rel="noopener noreferrer" class="support-btn btn-zalo"
+            id="link-zalo" title="Chat qua Zalo">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg" alt="Zalo"
+                class="zalo-svg-icon">
+            <span class="btn-label">Zalo</span>
+        </a>
+        <a href="https://m.me/tranbaho" target="_blank" rel="noopener noreferrer" class="support-btn btn-messenger"
+            id="link-messenger" title="Chat qua Messenger">
+            <i class="fa-brands fa-facebook-messenger"></i>
+            <span class="btn-label">Messenger</span>
+        </a>
+        <a href="tel:0918326706" class="support-btn btn-phone" id="link-phone" title="Gọi hotline">
+            <i class="fa-solid fa-phone"></i>
+            <span class="btn-label" id="label-phone">0918.326.706</span>
+        </a>
+    </div>
+
+    <!-- Media Lightbox Modal -->
+    <div id="media-modal" class="media-modal">
+        <span class="modal-close" id="modal-close"><i class="fa-solid fa-xmark"></i></span>
+        <div class="modal-content" id="modal-content">
+            <!-- Dynamic image or video loaded here -->
+        </div>
+    </div>
+
+    <!-- Custom Script -->
+    <script src="app.js"></script>
+</body>
+
+</html>
