@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const db = require('./db');
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
 const MIME_TYPES = {
     '.html': 'text/html; charset=utf-8',
@@ -295,7 +295,7 @@ const server = http.createServer(async (req, res) => {
     });
 });
 
-let port = 5000;
+let port = PORT;
 
 async function startServer() {
     try {
