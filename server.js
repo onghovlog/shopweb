@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const db = require('./db');
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 3000;
 
 const MIME_TYPES = {
     '.html': 'text/html; charset=utf-8',
@@ -22,7 +22,7 @@ const MIME_TYPES = {
 const server = http.createServer(async (req, res) => {
     // Log incoming requests
     console.log(`[${new Date().toLocaleTimeString()}] ${req.method} ${req.url}`);
-    
+
     // Enable CORS for API robustness
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
@@ -40,17 +40,17 @@ const server = http.createServer(async (req, res) => {
         try {
             const matches = base64Str.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
             if (!matches || matches.length !== 3) return base64Str;
-            
+
             const ext = matches[1].split('/')[1] || 'png';
             const buffer = Buffer.from(matches[2], 'base64');
             const filename = `upload_${Date.now()}_${Math.random().toString(36).substring(2, 7)}.${ext}`;
             const uploadsDir = path.join(__dirname, 'uploads');
-            
+
             // Create uploads directory if it doesn't exist
             if (!fs.existsSync(uploadsDir)) {
                 fs.mkdirSync(uploadsDir, { recursive: true });
             }
-            
+
             fs.writeFileSync(path.join(uploadsDir, filename), buffer);
             return `/uploads/${filename}`;
         } catch (e) {
@@ -119,9 +119,9 @@ const server = http.createServer(async (req, res) => {
         try {
             const body = await readBody(req);
             const newSubmission = JSON.parse(body);
-            
+
             await db.getSubmissionsCollection().insertOne(newSubmission);
-            
+
             res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
             res.end(JSON.stringify({ success: true, message: 'Đăng ký đã được lưu vào MongoDB' }));
         } catch (e) {
@@ -137,10 +137,10 @@ const server = http.createServer(async (req, res) => {
         try {
             const body = await readBody(req);
             const { username, password } = JSON.parse(body);
-            
+
             const adminDoc = await db.getAdminCollection().findOne({ _id: 'admin_credentials' });
             const admin = adminDoc || { username: 'admin', password: 'password123' };
-            
+
             if (username === admin.username && password === admin.password) {
                 res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
                 res.end(JSON.stringify({ success: true, token: 'active_session_admin' }));
@@ -160,7 +160,7 @@ const server = http.createServer(async (req, res) => {
         try {
             const body = await readBody(req);
             const newSettings = JSON.parse(body);
-            
+
             await db.getContactCollection().updateOne(
                 { _id: 'default_contact' },
                 { $set: newSettings },
@@ -181,7 +181,7 @@ const server = http.createServer(async (req, res) => {
         try {
             const body = await readBody(req);
             const { id } = JSON.parse(body);
-            
+
             await db.getSubmissionsCollection().deleteOne({ id: Number(id) });
 
             res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
@@ -198,7 +198,7 @@ const server = http.createServer(async (req, res) => {
         try {
             const body = await readBody(req);
             const newItem = JSON.parse(body);
-            
+
             // Save uploaded files if they are Base64 strings
             newItem.src = saveBase64Image(newItem.src);
             newItem.thumb = saveBase64Image(newItem.thumb);
@@ -219,7 +219,7 @@ const server = http.createServer(async (req, res) => {
         try {
             const body = await readBody(req);
             const updatedItem = JSON.parse(body);
-            
+
             // Save uploaded files if they are Base64 strings
             updatedItem.src = saveBase64Image(updatedItem.src);
             updatedItem.thumb = saveBase64Image(updatedItem.thumb);
@@ -248,7 +248,7 @@ const server = http.createServer(async (req, res) => {
         try {
             const body = await readBody(req);
             const { id } = JSON.parse(body);
-            
+
             await db.getGalleryCollection().deleteOne({ id: Number(id) });
 
             res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
@@ -301,7 +301,7 @@ async function startServer() {
     try {
         // Wait for Database connection & Seeding
         await db.initDb();
-        
+
         server.listen(port, () => {
             console.log(`==================================================`);
             console.log(`  SHOP CÓ WEB SERVER ĐANG CHẠY TRÊN MONGODB`);
