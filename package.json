@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/onghovlog/shop_co_web#readme",
   "dependencies": {
+    "dotenv": "^17.4.2",
     "mongodb": "^7.6.0"
   }
 }
