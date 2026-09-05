@@ -16,7 +16,8 @@ const collections = {
     gallery: null,
     submissions: null,
     contact: null,
-    admin: null
+    admin: null,
+    customers: null
 };
 
 /**
@@ -38,6 +39,7 @@ async function initDb() {
         collections.submissions = db.collection('submissions');
         collections.contact = db.collection('contact');
         collections.admin = db.collection('admin');
+        collections.customers = db.collection('customers');
 
         // Check if database needs seeding/migration
         const packageCount = await collections.packages.countDocuments();
@@ -141,6 +143,7 @@ module.exports = {
     getSubmissionsCollection: () => collections.submissions,
     getContactCollection: () => collections.contact,
     getAdminCollection: () => collections.admin,
+    getCustomersCollection: () => collections.customers,
     getDb: () => db,
     getClient: () => client
 };

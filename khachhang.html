@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Khách Hàng - Shop Có Web</title>
+    <style>
+        :root {
+            --primary: #ea580c;
+            --primary-hover: #c2410c;
+            --primary-light: #fff7ed;
+            --primary-border: #ffedd5;
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --bg-light: #f8fafc;
+            --border-color: #e2e8f0;
+            --white: #ffffff;
+            --danger: #dc2626;
+            --success: #16a34a;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.5;
+            padding-bottom: 40px;
+        }
+
+        header {
+            background-color: var(--white);
+            border-bottom: 2px solid var(--primary);
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .logo-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-title h1 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 14px;
+        }
+
+        .btn-logout {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            color: var(--text-muted);
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .btn-logout:hover {
+            border-color: var(--danger);
+            color: var(--danger);
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 24px auto;
+            padding: 0 16px;
+        }
+
+        /* Toolbar: Filter, Search, Add Button */
+        .toolbar {
+            background-color: var(--white);
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .search-filter-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+            flex: 1;
+        }
+
+        .search-box {
+            position: relative;
+            min-width: 280px;
+            flex: 1;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .search-box input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px var(--primary-border);
+        }
+
+        .filter-select {
+            padding: 8px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            outline: none;
+            font-size: 14px;
+            background-color: var(--white);
+            cursor: pointer;
+        }
+
+        .filter-select:focus {
+            border-color: var(--primary);
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 9px 16px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .btn-secondary {
+            background-color: var(--white);
+            color: var(--text-dark);
+            border: 1px solid var(--border-color);
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 500;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--bg-light);
+        }
+
+        /* Table Styling */
+        .table-responsive {
+            background-color: var(--white);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        th {
+            background-color: var(--primary-light);
+            color: var(--primary);
+            font-weight: 600;
+            padding: 12px 16px;
+            border-bottom: 2px solid var(--primary-border);
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border-color);
+            vertical-align: middle;
+        }
+
+        tbody tr:hover {
+            background-color: #fafafa;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge-static {
+            background-color: #e2e8f0;
+            color: #475569;
+        }
+
+        .badge-dynamic {
+            background-color: var(--primary-border);
+            color: var(--primary-hover);
+        }
+
+        .badge-status {
+            background-color: #f1f5f9;
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
+        }
+
+        .badge-status-running {
+            background-color: #dcfce7;
+            color: #15803d;
+            border: 1px solid #bbf7d0;
+        }
+
+        .badge-status-completed {
+            background-color: #e0f2fe;
+            color: #0369a1;
+            border: 1px solid #bae6fd;
+        }
+
+        /* Action Buttons */
+        .action-btns {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .btn-icon {
+            background: none;
+            border: 1px solid var(--border-color);
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-icon:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background-color: var(--primary-light);
+        }
+
+        .btn-icon-delete:hover {
+            border-color: var(--danger);
+            color: var(--danger);
+            background-color: #fef2f2;
+        }
+
+        /* Modal Overlay */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 16px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal {
+            background-color: var(--white);
+            border-radius: 8px;
+            width: 100%;
+            max-width: 720px;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .modal-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--primary-light);
+        }
+
+        .modal-header h2 {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--primary-hover);
+        }
+
+        .btn-close {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: var(--text-muted);
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        .modal-footer {
+            padding: 16px 20px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            background-color: #fafafa;
+        }
+
+        /* Form Layout */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+
+        .form-group label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            padding: 8px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            border-color: var(--primary);
+        }
+
+        .form-section-title {
+            grid-column: span 2;
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--primary);
+            border-bottom: 1px solid var(--primary-border);
+            padding-bottom: 4px;
+            margin-top: 8px;
+        }
+
+        /* Detail View Grid */
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            font-size: 14px;
+        }
+
+        .detail-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            background: #f8fafc;
+            padding: 10px 14px;
+            border-radius: 6px;
+            border: 1px solid #f1f5f9;
+        }
+
+        .detail-item.full-width {
+            grid-column: span 2;
+        }
+
+        .detail-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .detail-value {
+            font-weight: 500;
+            color: var(--text-dark);
+            word-break: break-all;
+        }
+
+        /* Login Card Overlay */
+        .login-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 32px;
+            width: 100%;
+            max-width: 400px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .login-header h2 {
+            color: var(--primary);
+            font-size: 22px;
+            margin-bottom: 6px;
+        }
+
+        .login-header p {
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        .alert-info {
+            background-color: var(--primary-light);
+            border: 1px solid var(--primary-border);
+            color: var(--primary-hover);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            margin-bottom: 16px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="logo-title">
+            <h1>Quản Lý Khách Hàng</h1>
+        </div>
+        <div class="user-info" id="userInfo" style="display: none;">
+            <span>Xin chào, <strong id="adminUsername">Admin</strong></span>
+            <button class="btn-logout" onclick="handleLogout()">Đăng xuất</button>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <div class="container" id="mainContainer" style="display: none;">
+        
+        <!-- Toolbar: Search, Filter, Add -->
+        <div class="toolbar">
+            <div class="search-filter-group">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Tìm theo tên dự án, tên khách, SĐT..." oninput="handleSearchFilter()">
+                </div>
+                <div>
+                    <select id="typeFilter" class="filter-select" onchange="handleSearchFilter()">
+                        <option value="ALL">-- Tất cả loại website --</option>
+                        <option value="Tĩnh">Website Tĩnh</option>
+                        <option value="Động">Website Động</option>
+                    </select>
+                </div>
+                <div>
+                    <select id="statusFilter" class="filter-select" onchange="handleSearchFilter()">
+                        <option value="ALL">-- Tất cả trạng thái --</option>
+                        <option value="Đang thực hiện">Đang thực hiện</option>
+                        <option value="Hoàn thành">Hoàn thành</option>
+                        <option value="Mới">Mới</option>
+                        <option value="Tạm dừng">Tạm dừng</option>
+                    </select>
+                </div>
+            </div>
+            <button class="btn-primary" onclick="openAddModal()">+ Thêm Khách Hàng</button>
+        </div>
+
+        <!-- Data Table -->
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Domain</th>
+                        <th>Tên Dự Án</th>
+                        <th>Loại</th>
+                        <th>Ngày Bắt Đầu</th>
+                        <th>Ngày Hoàn Thành</th>
+                        <th>Trạng Thái</th>
+                        <th style="text-align: center;">Thao Tác</th>
+                    </tr>
+                </thead>
+                <tbody id="customerTableBody">
+                    <!-- Dynamic Rows -->
+                </tbody>
+            </table>
+            <div class="empty-state" id="emptyState" style="display: none;">
+                Chưa có dữ liệu khách hàng phù hợp.
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="modal-overlay active" id="loginOverlay">
+        <div class="login-card">
+            <div class="login-header">
+                <h2>Đăng Nhập Quản Lý</h2>
+                <p>Vui lòng đăng nhập để tiếp tục</p>
+            </div>
+            <div class="alert-info">
+                Tài khoản mặc định: <strong>admin</strong> / <strong>123</strong>
+            </div>
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group" style="margin-bottom: 16px;">
+                    <label for="loginUser">Tên đăng nhập</label>
+                    <input type="text" id="loginUser" required value="admin">
+                </div>
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <label for="loginPass">Mật khẩu</label>
+                    <input type="password" id="loginPass" required value="123">
+                </div>
+                <div id="loginError" style="color: var(--danger); font-size: 13px; margin-bottom: 12px; display: none;"></div>
+                <button type="submit" class="btn-primary" style="width: 100%;">Đăng Nhập</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add/Edit Customer Modal -->
+    <div class="modal-overlay" id="customerFormModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 id="modalFormTitle">Thêm Khách Hàng Mới</h2>
+                <button class="btn-close" onclick="closeModal('customerFormModal')">&times;</button>
+            </div>
+            <form id="customerForm" onsubmit="handleSaveCustomer(event)">
+                <div class="modal-body">
+                    <input type="hidden" id="customerId">
+                    <div class="form-grid">
+                        
+                        <!-- Section 1: Thông tin Dự Án -->
+                        <div class="form-section-title">1. Thông Tin Dự Án</div>
+                        
+                        <div class="form-group">
+                            <label>Tên Dự Án (*)</label>
+                            <input type="text" id="tenDuAn" required placeholder="Nhập tên dự án">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Loại Website (*)</label>
+                            <select id="loaiWebsite" required>
+                                <option value="Tĩnh">Tĩnh (Static)</option>
+                                <option value="Động">Động (Dynamic)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Tên Domain</label>
+                            <input type="text" id="tenDomain" placeholder="Ví dụ: myshop.com">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Link GitHub</label>
+                            <input type="url" id="linkGithub" placeholder="https://github.com/...">
+                        </div>
+
+                        <!-- Section 2: Server & Database -->
+                        <div class="form-section-title">2. Server & Cơ Sở Dữ Liệu</div>
+
+                        <div class="form-group">
+                            <label>Tài Khoản Mongo</label>
+                            <input type="text" id="taiKhoanMongo" placeholder="Tài khoản Mongo Atlas/Local">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Tên Database Mongo</label>
+                            <input type="text" id="tenMongodb" placeholder="Tên database trong Mongo">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Thư Mục Render</label>
+                            <input type="text" id="thuMucRender" placeholder="Tên service / directory Render">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Link OnRender</label>
+                            <input type="url" id="linkOnrender" placeholder="https://xxx.onrender.com">
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label>Thư Mục VPS</label>
+                            <input type="text" id="thuMucVps" placeholder="Ví dụ: /var/www/myproject">
+                        </div>
+
+                        <!-- Section 3: Thông tin Khách Hàng -->
+                        <div class="form-section-title">3. Thông Tin Khách Hàng</div>
+
+                        <div class="form-group">
+                            <label>Tên Khách Hàng (*)</label>
+                            <input type="text" id="tenKhach" required placeholder="Tên người liên hệ">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Số Điện Thoại (*)</label>
+                            <input type="text" id="sdt" required placeholder="0901234567">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Zalo</label>
+                            <input type="text" id="zalo" placeholder="SĐT hoặc link Zalo">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Messenger</label>
+                            <input type="text" id="messenger" placeholder="Facebook / Messenger link">
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label>Link Tài Nguyên (Drive, Figma...)</label>
+                            <input type="url" id="linkTaiNguyen" placeholder="https://drive.google.com/...">
+                        </div>
+
+                        <!-- Section 4: Tiến độ & Trạng thái -->
+                        <div class="form-section-title">4. Tiến Độ & Trạng Thái</div>
+
+                        <div class="form-group">
+                            <label>Trạng Thái</label>
+                            <select id="trangThai">
+                                <option value="Mới">Mới</option>
+                                <option value="Đang thực hiện" selected>Đang thực hiện</option>
+                                <option value="Hoàn thành">Hoàn thành</option>
+                                <option value="Tạm dừng">Tạm dừng</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Ngày Bắt Đầu</label>
+                            <input type="date" id="ngayBatDau">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Ngày Hoàn Thành (Dự kiến/Thực tế)</label>
+                            <input type="date" id="ngayHoanThanh">
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" onclick="closeModal('customerFormModal')">Hủy</button>
+                    <button type="submit" class="btn-primary">Lưu Khách Hàng</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- View Customer Detail Modal -->
+    <div class="modal-overlay" id="customerDetailModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Chi Tiết Khách Hàng & Dự Án</h2>
+                <button class="btn-close" onclick="closeModal('customerDetailModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="detail-grid" id="detailGridContent">
+                    <!-- Dynamic Details -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-secondary" onclick="closeModal('customerDetailModal')">Đóng</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal-overlay" id="deleteConfirmModal">
+        <div class="modal" style="max-width: 420px;">
+            <div class="modal-header">
+                <h2>Xác Nhận Xóa</h2>
+                <button class="btn-close" onclick="closeModal('deleteConfirmModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Bạn có chắc chắn muốn xóa khách hàng <strong id="deleteCustomerName"></strong>?</p>
+                <p style="color: var(--text-muted); font-size: 13px; margin-top: 8px;">Thao tác này không thể hoàn tác.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-secondary" onclick="closeModal('deleteConfirmModal')">Hủy</button>
+                <button type="button" class="btn-primary" style="background-color: var(--danger);" onclick="confirmDeleteCustomer()">Xóa Khách Hàng</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        let customersData = [];
+        let deletingCustomerId = null;
+
+        // Check authentication state on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const token = sessionStorage.getItem('kh_auth_token');
+            if (token) {
+                showAppUI();
+                loadCustomers();
+            } else {
+                showLoginUI();
+            }
+        });
+
+        function showLoginUI() {
+            document.getElementById('loginOverlay').classList.add('active');
+            document.getElementById('mainContainer').style.display = 'none';
+            document.getElementById('userInfo').style.display = 'none';
+        }
+
+        function showAppUI() {
+            document.getElementById('loginOverlay').classList.remove('active');
+            document.getElementById('mainContainer').style.display = 'block';
+            document.getElementById('userInfo').style.display = 'flex';
+        }
+
+        async function handleLogin(e) {
+            e.preventDefault();
+            const username = document.getElementById('loginUser').value.trim();
+            const password = document.getElementById('loginPass').value.trim();
+            const errorDiv = document.getElementById('loginError');
+
+            errorDiv.style.display = 'none';
+
+            try {
+                const res = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+                const result = await res.json();
+
+                if (res.ok && result.success) {
+                    sessionStorage.setItem('kh_auth_token', result.token);
+                    showAppUI();
+                    loadCustomers();
+                } else {
+                    errorDiv.innerText = result.error || 'Đăng nhập không thành công.';
+                    errorDiv.style.display = 'block';
+                }
+            } catch (err) {
+                errorDiv.innerText = 'Lỗi kết nối máy chủ.';
+                errorDiv.style.display = 'block';
+            }
+        }
+
+        function handleLogout() {
+            sessionStorage.removeItem('kh_auth_token');
+            showLoginUI();
+        }
+
+        async function loadCustomers() {
+            try {
+                const res = await fetch('/api/customers');
+                if (res.ok) {
+                    customersData = await res.json();
+                    renderCustomerTable(customersData);
+                } else {
+                    console.error('Không thể tải dữ liệu khách hàng');
+                }
+            } catch (err) {
+                console.error('Lỗi kết nối API customers:', err);
+            }
+        }
+
+        function handleSearchFilter() {
+            const searchText = document.getElementById('searchInput').value.toLowerCase().trim();
+            const typeVal = document.getElementById('typeFilter').value;
+            const statusVal = document.getElementById('statusFilter').value;
+
+            const filtered = customersData.filter(item => {
+                // Type Filter
+                if (typeVal !== 'ALL' && item.loaiWebsite !== typeVal) return false;
+                
+                // Status Filter
+                if (statusVal !== 'ALL' && item.trangThai !== statusVal) return false;
+
+                // Search Filter: matching Project Name, Customer Phone, or Customer Name
+                if (searchText) {
+                    const tenDuAn = (item.tenDuAn || '').toLowerCase();
+                    const tenKhach = (item.thongTinKhachHang?.tenKhach || '').toLowerCase();
+                    const sdt = (item.thongTinKhachHang?.sdt || '').toLowerCase();
+                    const domain = (item.tenDomain || '').toLowerCase();
+
+                    const matches = tenDuAn.includes(searchText) || 
+                                    tenKhach.includes(searchText) || 
+                                    sdt.includes(searchText) ||
+                                    domain.includes(searchText);
+
+                    if (!matches) return false;
+                }
+
+                return true;
+            });
+
+            renderCustomerTable(filtered);
+        }
+
+        function renderCustomerTable(data) {
+            const tbody = document.getElementById('customerTableBody');
+            const emptyState = document.getElementById('emptyState');
+            tbody.innerHTML = '';
+
+            if (!data || data.length === 0) {
+                emptyState.style.display = 'block';
+                return;
+            }
+
+            emptyState.style.display = 'none';
+
+            data.forEach(item => {
+                const tr = document.createElement('tr');
+
+                const typeBadgeClass = item.loaiWebsite === 'Động' ? 'badge-dynamic' : 'badge-static';
+                let statusBadgeClass = 'badge-status';
+                if (item.trangThai === 'Đang thực hiện') statusBadgeClass = 'badge-status-running';
+                if (item.trangThai === 'Hoàn thành') statusBadgeClass = 'badge-status-completed';
+
+                tr.innerHTML = `
+                    <td><strong>${escapeHtml(item.tenDomain || '---')}</strong></td>
+                    <td>${escapeHtml(item.tenDuAn || '---')}</td>
+                    <td><span class="badge ${typeBadgeClass}">${escapeHtml(item.loaiWebsite || 'Tĩnh')}</span></td>
+                    <td>${escapeHtml(item.ngayBatDau || '---')}</td>
+                    <td>${escapeHtml(item.ngayHoanThanh || '---')}</td>
+                    <td><span class="badge ${statusBadgeClass}">${escapeHtml(item.trangThai || 'Mới')}</span></td>
+                    <td style="text-align: center;">
+                        <div class="action-btns" style="justify-content: center;">
+                            <!-- Xem chi tiết icon -->
+                            <button class="btn-icon" title="Xem Chi Tiết" onclick="openDetailModal('${item.id}')">
+                                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                            </button>
+                            <!-- Sửa icon -->
+                            <button class="btn-icon" title="Chỉnh Sửa" onclick="openEditModal('${item.id}')">
+                                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                            </button>
+                            <!-- Xóa icon -->
+                            <button class="btn-icon btn-icon-delete" title="Xóa" onclick="openDeleteModal('${item.id}')">
+                                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                            </button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function openAddModal() {
+            document.getElementById('customerFormTitle').innerText = 'Thêm Khách Hàng Mới';
+            document.getElementById('customerForm').reset();
+            document.getElementById('customerId').value = '';
+
+            // Set default dates if needed
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('ngayBatDau').value = today;
+
+            openModal('customerFormModal');
+        }
+
+        function openEditModal(id) {
+            const item = customersData.find(c => String(c.id) === String(id));
+            if (!item) return;
+
+            document.getElementById('customerFormTitle').innerText = 'Chỉnh Sửa Khách Hàng';
+            document.getElementById('customerId').value = item.id;
+            document.getElementById('tenDuAn').value = item.tenDuAn || '';
+            document.getElementById('loaiWebsite').value = item.loaiWebsite || 'Tĩnh';
+            document.getElementById('tenDomain').value = item.tenDomain || '';
+            document.getElementById('linkGithub').value = item.linkGithub || '';
+
+            document.getElementById('taiKhoanMongo').value = item.taiKhoanMongo || '';
+            document.getElementById('tenMongodb').value = item.tenMongodb || '';
+            document.getElementById('thuMucRender').value = item.thuMucRender || '';
+            document.getElementById('linkOnrender').value = item.linkOnrender || '';
+            document.getElementById('thuMucVps').value = item.thuMucVps || '';
+
+            document.getElementById('tenKhach').value = item.thongTinKhachHang?.tenKhach || '';
+            document.getElementById('sdt').value = item.thongTinKhachHang?.sdt || '';
+            document.getElementById('zalo').value = item.thongTinKhachHang?.zalo || '';
+            document.getElementById('messenger').value = item.thongTinKhachHang?.messenger || '';
+            document.getElementById('linkTaiNguyen').value = item.linkTaiNguyen || '';
+
+            document.getElementById('trangThai').value = item.trangThai || 'Đang thực hiện';
+            document.getElementById('ngayBatDau').value = item.ngayBatDau || '';
+            document.getElementById('ngayHoanThanh').value = item.ngayHoanThanh || '';
+
+            openModal('customerFormModal');
+        }
+
+        async function handleSaveCustomer(e) {
+            e.preventDefault();
+            const id = document.getElementById('customerId').value;
+
+            const payload = {
+                id: id ? Number(id) : Date.now(),
+                loaiWebsite: document.getElementById('loaiWebsite').value,
+                tenDuAn: document.getElementById('tenDuAn').value.trim(),
+                tenDomain: document.getElementById('tenDomain').value.trim(),
+                linkGithub: document.getElementById('linkGithub').value.trim(),
+                taiKhoanMongo: document.getElementById('taiKhoanMongo').value.trim(),
+                tenMongodb: document.getElementById('tenMongodb').value.trim(),
+                thuMucRender: document.getElementById('thuMucRender').value.trim(),
+                linkOnrender: document.getElementById('linkOnrender').value.trim(),
+                thuMucVps: document.getElementById('thuMucVps').value.trim(),
+                thongTinKhachHang: {
+                    tenKhach: document.getElementById('tenKhach').value.trim(),
+                    sdt: document.getElementById('sdt').value.trim(),
+                    zalo: document.getElementById('zalo').value.trim(),
+                    messenger: document.getElementById('messenger').value.trim()
+                },
+                linkTaiNguyen: document.getElementById('linkTaiNguyen').value.trim(),
+                trangThai: document.getElementById('trangThai').value,
+                ngayBatDau: document.getElementById('ngayBatDau').value,
+                ngayHoanThanh: document.getElementById('ngayHoanThanh').value
+            };
+
+            const endpoint = id ? '/api/customers/update' : '/api/customers';
+
+            try {
+                const res = await fetch(endpoint, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                if (res.ok) {
+                    closeModal('customerFormModal');
+                    loadCustomers();
+                } else {
+                    alert('Không thể lưu thông tin khách hàng. Vui lòng kiểm tra lại!');
+                }
+            } catch (err) {
+                alert('Lỗi kết nối máy chủ.');
+            }
+        }
+
+        function openDetailModal(id) {
+            const item = customersData.find(c => String(c.id) === String(id));
+            if (!item) return;
+
+            const container = document.getElementById('detailGridContent');
+            const info = item.thongTinKhachHang || {};
+
+            container.innerHTML = `
+                <div class="detail-item">
+                    <span class="detail-label">Tên Dự Án</span>
+                    <span class="detail-value">${escapeHtml(item.tenDuAn || '---')}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Loại Website</span>
+                    <span class="detail-value">${escapeHtml(item.loaiWebsite || '---')}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Tên Domain</span>
+                    <span class="detail-value">${escapeHtml(item.tenDomain || '---')}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Link GitHub</span>
+                    <span class="detail-value">${item.linkGithub ? `<a href="${escapeHtml(item.linkGithub)}" target="_blank" style="color: var(--primary);">${escapeHtml(item.linkGithub)}</a>` : '---'}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Tài Khoản Mongo</span>
+                    <span class="detail-value">${escapeHtml(item.taiKhoanMongo || '---')}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Tên MongoDB</span>
+                    <span class="detail-value">${escapeHtml(item.tenMongodb || '---')}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Thư Mục Render</span>
+                    <span class="detail-value">${escapeHtml(item.thuMucRender || '---')}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Link OnRender</span>
+                    <span class="detail-value">${item.linkOnrender ? `<a href="${escapeHtml(item.linkOnrender)}" target="_blank" style="color: var(--primary);">${escapeHtml(item.linkOnrender)}</a>` : '---'}</span>
+                </div>
+                <div class="detail-item full-width">
+                    <span class="detail-label">Thư Mục VPS</span>
+                    <span class="detail-value">${escapeHtml(item.thuMucVps || '---')}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Tên Khách Hàng</span>
+                    <span class="detail-value">${escapeHtml(info.tenKhach || '---')}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Số Điện Thoại</span>
+                    <span class="detail-value">${escapeHtml(info.sdt || '---')}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Zalo</span>
+                    <span class="detail-value">${escapeHtml(info.zalo || '---')}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Messenger</span>
+                    <span class="detail-value">${escapeHtml(info.messenger || '---')}</span>
+                </div>
+                <div class="detail-item full-width">
+                    <span class="detail-label">Link Tài Nguyên</span>
+                    <span class="detail-value">${item.linkTaiNguyen ? `<a href="${escapeHtml(item.linkTaiNguyen)}" target="_blank" style="color: var(--primary);">${escapeHtml(item.linkTaiNguyen)}</a>` : '---'}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Trạng Thái</span>
+                    <span class="detail-value">${escapeHtml(item.trangThai || '---')}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Thời Gian</span>
+                    <span class="detail-value">Bắt đầu: ${escapeHtml(item.ngayBatDau || '---')}<br>Hoàn thành: ${escapeHtml(item.ngayHoanThanh || '---')}</span>
+                </div>
+            `;
+
+            openModal('customerDetailModal');
+        }
+
+        function openDeleteModal(id) {
+            const item = customersData.find(c => String(c.id) === String(id));
+            if (!item) return;
+
+            deletingCustomerId = item.id;
+            document.getElementById('deleteCustomerName').innerText = `${item.tenDuAn} (${item.thongTinKhachHang?.tenKhach || 'Khách hàng'})`;
+            openModal('deleteConfirmModal');
+        }
+
+        async function confirmDeleteCustomer() {
+            if (!deletingCustomerId) return;
+
+            try {
+                const res = await fetch('/api/customers/delete', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id: deletingCustomerId })
+                });
+
+                if (res.ok) {
+                    closeModal('deleteConfirmModal');
+                    deletingCustomerId = null;
+                    loadCustomers();
+                } else {
+                    alert('Xóa khách hàng thất bại.');
+                }
+            } catch (err) {
+                alert('Lỗi kết nối máy chủ.');
+            }
+        }
+
+        function openModal(id) {
+            document.getElementById(id).classList.add('active');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('active');
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+    </script>
+</body>
+</html>

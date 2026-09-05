@@ -73,6 +73,9 @@ const server = http.createServer(async (req, res) => {
     if (normalizedUrl === '/' || normalizedUrl === '/shopweb' || normalizedUrl === '/shopweb/') {
         normalizedUrl = '/index.html';
     }
+    if (normalizedUrl === '/khachhang' || normalizedUrl === '/khachhang/' || normalizedUrl === '/shopweb/khachhang' || normalizedUrl === '/shopweb/khachhang/') {
+        normalizedUrl = '/khachhang.html';
+    }
 
     // ----------------------------------------------------
     // API ROUTES (MongoDB Backend)
@@ -254,6 +257,90 @@ const server = http.createServer(async (req, res) => {
             res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
             res.end(JSON.stringify({ success: true, message: 'Xóa sản phẩm thư viện thành công' }));
         } catch (e) {
+            res.writeHead(400, { 'Content-Type': 'application/json; charset=utf-8' });
+            res.end(JSON.stringify({ error: 'Dữ liệu không hợp lệ' }));
+        }
+        return;
+    }
+
+    // ----------------------------------------------------
+    // CUSTOMER MANAGEMENT API ROUTES
+    // ----------------------------------------------------
+
+    // Route: Get all customers
+    if ((normalizedUrl === '/api/customers' || normalizedUrl === '/api/khachhang') && req.method === 'GET') {
+        try {
+            const customers = await db.getCustomersCollection().find().toArray();
+            res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+            res.end(JSON.stringify(customers));
+        } catch (e) {
+            console.error('Lỗi khi lấy danh sách khách hàng:', e);
+            res.writeHead(500, { 'Content-Type': 'application/json; charset=utf-8' });
+            res.end(JSON.stringify({ error: 'Lỗi truy vấn cơ sở dữ liệu' }));
+        }
+        return;
+    }
+
+    // Route: Add new customer
+    if ((normalizedUrl === '/api/customers' || normalizedUrl === '/api/khachhang') && req.method === 'POST') {
+        try {
+            const body = await readBody(req);
+            const newCustomer = JSON.parse(body);
+            if (!newCustomer.id) {
+                newCustomer.id = Date.now();
+            }
+            newCustomer.createdAt = new Date().toISOString();
+
+            await db.getCustomersCollection().insertOne(newCustomer);
+
+            res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+            res.end(JSON.stringify({ success: true, message: 'Thêm khách hàng thành công', data: newCustomer }));
+        } catch (e) {
+            console.error('Lỗi khi thêm khách hàng:', e);
+            res.writeHead(400, { 'Content-Type': 'application/json; charset=utf-8' });
+            res.end(JSON.stringify({ error: 'Dữ liệu không hợp lệ' }));
+        }
+        return;
+    }
+
+    // Route: Update customer
+    if ((normalizedUrl === '/api/customers/update' || normalizedUrl === '/api/khachhang/update') && req.method === 'POST') {
+        try {
+            const body = await readBody(req);
+            const customerData = JSON.parse(body);
+            const customerId = Number(customerData.id) || customerData.id;
+
+            delete customerData._id;
+
+            await db.getCustomersCollection().updateOne(
+                { id: customerId },
+                { $set: customerData },
+                { upsert: true }
+            );
+
+            res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+            res.end(JSON.stringify({ success: true, message: 'Cập nhật thông tin khách hàng thành công' }));
+        } catch (e) {
+            console.error('Lỗi khi cập nhật khách hàng:', e);
+            res.writeHead(400, { 'Content-Type': 'application/json; charset=utf-8' });
+            res.end(JSON.stringify({ error: 'Dữ liệu không hợp lệ' }));
+        }
+        return;
+    }
+
+    // Route: Delete customer
+    if ((normalizedUrl === '/api/customers/delete' || normalizedUrl === '/api/khachhang/delete') && req.method === 'POST') {
+        try {
+            const body = await readBody(req);
+            const { id } = JSON.parse(body);
+            const customerId = Number(id) || id;
+
+            await db.getCustomersCollection().deleteOne({ id: customerId });
+
+            res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+            res.end(JSON.stringify({ success: true, message: 'Xóa khách hàng thành công' }));
+        } catch (e) {
+            console.error('Lỗi khi xóa khách hàng:', e);
             res.writeHead(400, { 'Content-Type': 'application/json; charset=utf-8' });
             res.end(JSON.stringify({ error: 'Dữ liệu không hợp lệ' }));
         }
